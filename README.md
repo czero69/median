@@ -29,7 +29,7 @@ O(n log(n))
 After iterating half of the elements n/2
 inserting/deleting is O(log n) for n elements in the heap at the worst case. doing it for n/2 elements gives O(n log n)
 
-## second alghoritm linked list
+## second alghoritm linked list:
 not implemented yet
 
 Complexity:

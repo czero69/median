@@ -6,20 +6,19 @@
 #include <iostream>
 
 double getMedian(int e, double &m, Heap &l, Heap &r);
-double Average(int a, int b);
+double average(int a, int b);
 
 int main()
 {
-	int A[] = { 5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4 };
-	//int A[] = { 0, 4, 3, 6, 1, 5, 2 };
-	//int A[] = { 0, 1, 2, 3};
+	//int A[] = { 5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4 };
+	int A[] = { 0, 4, 3, 6, 1, 5, 6 };
+	//int A[] = { 1, 2 ,3 ,9 , 9, 9, 9, 9};
 	int size = ARRAY_SIZE(A);
 	double m = 0; // effective median
-
+	
 	Heap *left = new MaxHeap();
 	Heap *right = new MinHeap();
 
-	//@TODO warunki dla dw pierwszych
 	int greaterF, smallerF;
 
 	if (size > 1)
@@ -33,12 +32,21 @@ int main()
 	if(size > 0)
 	std::cout << A[0] << std::endl;
 	if(size > 1)
-	std::cout << Average(A[0],A[1]) << std::endl;
+	std::cout << average(A[0],A[1]) << std::endl;
 
+	// from 3rd element to size
 	for (int i = 2; i < size; i++)
 	{
-		m = getMedian(A[i], m, *left, *right);
-		std::cout << m << std::endl;
+		if (i < MAX_HEAP_SIZE)
+		{
+			m = getMedian(A[i], m, *left, *right);
+			std::cout << m << std::endl;
+		}
+		if (i == MAX_HEAP_SIZE)
+		{
+			std::cout << "error: Max_Heap_Size is reached..." << std::endl;
+			break;
+		}
 	}
 
 	delete left;
@@ -50,9 +58,9 @@ int main()
     return 0;
 }
 
-double Average(int a, int b)
+double average(int a, int b)
 {
-	return double(double(double(a) + double(b)) / 2.0);
+	return double(a + b) / 2.0;
 }
 
 // compheapsize function
@@ -61,24 +69,17 @@ double Average(int a, int b)
 // = 1 if a > b - left contains more than one elements than right
 int compheapsize(int a, int b)
 {
-	//if (a == b)
-	//	return 0;
-
 	if (a > b + 1)
 		return 1;
 	else if (b > a + 1)
 		return -1;
 	else
 		return 0;
-
-	//return a < b ? -1 : 1;
 }
 
 double getMedian(int e, double &m, Heap &l, Heap &r)
 {
-	// Are heaps balanced? If yes, sig will be 0
-
-	if (e < l.GetTop())
+	if (e < l.gettop())
 		l.Insert(e);
 	else
 		r.Insert(e);
@@ -86,24 +87,24 @@ double getMedian(int e, double &m, Heap &l, Heap &r)
 	//std::cout << "numL: " << l.GetCount() << std::endl;
 	//std::cout << "numR: " << r.GetCount() << std::endl;
 
-	int sig = compheapsize(l.GetCount(), r.GetCount());
+	int sig = compheapsize(l.getcount(), r.getcount());
 	switch (sig)
 	{
 	case 1: // There are more than one elements in left (max) heap
-		r.Insert(l.ExtractTop());
-		m = Average(l.GetTop(), r.GetTop()); 		// Both heaps are balanced
+		r.Insert(l.extractTop());
+		m = average(l.gettop(), r.gettop()); 		// Both heaps are equal size
 		break;
-	case 0: // The left and right differs less than 1
-		if (l.GetCount() > r.GetCount())
-			m = double(l.GetTop());
-		else if (l.GetCount() < r.GetCount())
-			m = double(r.GetTop());
+	case 0: // The left and right differs no more than 1
+		if (l.getcount() > r.getcount())
+			m = double(l.gettop());
+		else if (l.getcount() < r.getcount())
+			m = double(r.gettop());
 		else
-			m = Average(l.GetTop(), r.GetTop());
+			m = average(l.gettop(), r.gettop());
 		break;
 	case -1: // There are more than one elements in right (min) heap
-		l.Insert(r.ExtractTop());
-		m = Average(l.GetTop(), r.GetTop());		// Both heaps are balanced
+		l.Insert(r.extractTop());
+		m = average(l.gettop(), r.gettop());		// Both heaps are equal size
 		break;
 	}
 

@@ -1,5 +1,8 @@
 #pragma once
 
+// the better way could be implementing dynamic array allocating more memory when needed
+// in the case of 20GB file size, writing do HDD should be implemented
+// for the purpose of demonstrating algorithm static array should be ok
 #define MAX_HEAP_SIZE (128)
 #define ARRAY_SIZE(a) sizeof(a)/sizeof(a[0])
 
@@ -7,25 +10,25 @@ class Heap
 {
 public:
 	// Initializes heap array and comparator required
-	// in heapification
+
 	Heap(int *b, bool(*c)(int, int));
 	// Frees up dynamic memory
 	virtual ~Heap();
 
-	// We need only these four interfaces of Heap ADT
+	// We need only these four interfaces
 	bool Insert(int key)
 	{
 		return insertHelper(key);
 	}
-	int GetTop()
+	int gettop()
 	{
 		return top();
 	}
-	int ExtractTop()
+	int extractTop()
 	{
 		return deleteTop();
 	}
-	int GetCount()
+	int getcount()
 	{
 		return count();
 	}
@@ -35,16 +38,16 @@ protected:
 	// We are also using location 0 of array
 	int left(int i)
 	{
-		if (2 * i + 1 > heapSize)
-			return MAX_HEAP_SIZE + 1;
+		if (2 * i + 1 >= heapSize)
+			return -1;
 		else
 			return 2 * i + 1;
 	}
 
 	int right(int i)
 	{
-		if (2 * (i + 1) > heapSize)
-			return MAX_HEAP_SIZE+1;
+		if (2 * (i + 1) >= heapSize)
+			return -1;
 		else
 			return 2 * (i + 1);
 	}
@@ -70,7 +73,7 @@ protected:
 	{
 		int max = -1;
 
-		if (heapSize >= 0)
+		if (heapSize > 0)
 		{
 			max = A[0];
 		}
@@ -80,7 +83,7 @@ protected:
 	// Returns number of elements in heap
 	int count()
 	{
-		return heapSize + 1;
+		return heapSize;
 	}
 
 	// Heapification

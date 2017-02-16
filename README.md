@@ -1,15 +1,17 @@
-## Finging effective median in running stream of integers
+# Finding effective median in running stream of integers
 
 ##Algorithm based on two heaps:
 
+http://stackoverflow.com/questions/10657503/find-running-median-from-a-stream-of-integers
+
 For the first two elements add smaller one to the maxHeap on the left, and bigger one to the minHeap on the right. Then process stream data one by one,
 
-Step 1: Add next item to one of the heaps
+* Step 1: Add next item to one of the heaps
 
    if next item is smaller than maxHeap root add it to maxHeap,
    else add it to minHeap
 
-Step 2: Balance the heaps (after this step heaps will be either balanced or
+* Step 2: Balance the heaps (after this step heaps will be either balanced or
    one of them will contain 1 more item)
 
    if number of elements in one of the heaps is greater than the other by
@@ -24,13 +26,22 @@ Then at any given time median is:
      
 Complexity:
 
-O(n log(n))
+Θ(n log(n))
 
-After iterating half of the elements n/2
-inserting/deleting is O(log n) for n elements in the heap at the worst case. doing it for n/2 elements gives O(n log n)
+Insertion/deletion is Θ(log(n))
+(heap height is log2(N+1) for already inserted N values, where N=2^k-1, k is integer) 
+insertions for N elements
 
-## second alghoritm linked list:
-not implemented yet
+inserting/deleting is Θ(log n) for n inserted elements. Doing it for n elements gives Θ(n log n)
 
+## Alghoritm based on linked list:
+no head and tail, only middle pointer to Node
+2 way linked list
+insertion: Θ(n)
 Complexity:
-O(n^2)
+Θ(n^2)
+worst case insertions for N elements. lim N->inf
+
+- dla funkcji f() ścisle rosnącej
+n*f(1) <= f(1)+f(2)+f(3)+..+f(n) <= n*f(n)
+- jeśli jest to wielomian, współczynniki przy wyrazach wielomianu nie mają znaczenia (lim n-> inf)

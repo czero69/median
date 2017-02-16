@@ -25,23 +25,25 @@ Then at any given time median is:
      median = root of the heap with more elements
      
 Complexity:
-
 Θ(n log(n))
 
-Insertion/deletion is Θ(log(n))
+Insertion/removingroot is Θ(log(n))
 (heap height is log2(N+1) for already inserted N values, where N=2^k-1, k is integer) 
 insertions for N elements
 
 inserting/deleting is Θ(log n) for n inserted elements. Doing it for n elements gives Θ(n log n)
 
 ## Alghoritm based on linked list:
-no head and tail, only middle pointer to Node
-2 way linked list
-insertion: Θ(n)
+- no head and tail, only middle pointer to Node
+- 2 way linked list
+
 Complexity:
 Θ(n^2)
+
+insertion is Θ(n)
 worst case insertions for N elements. lim N->inf
 
+##Math Θ(...)
 - dla funkcji f() ścisle rosnącej
 n*f(1) <= f(1)+f(2)+f(3)+..+f(n) <= n*f(n)
 - jeśli jest to wielomian, współczynniki przy wyrazach wielomianu nie mają znaczenia (lim n-> inf)

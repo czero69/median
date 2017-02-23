@@ -61,7 +61,7 @@ void Heap::siftDown(int i)
 	// percolates down
 
 	if (lchild > 0 && rchild > 0)
-		tempchild = comp(A[lchild], A[rchild]) ? lchild : rchild; //tempchild differs for MaxHeap and MeanHeap
+		tempchild = comp(A[lchild], A[rchild]) ? lchild : rchild; //tempchild differs for MaxHeap and MinHeap
 	else if (lchild > 0)
 		tempchild = lchild;
 	else if (rchild > 0)
@@ -69,7 +69,7 @@ void Heap::siftDown(int i)
 	else
 		tempchild = -1;
 
-	if (tempchild > 0 && comp(A[tempchild], A[i])) // condition differs for MaxHeap and MeanHeap
+	if (tempchild > 0 && comp(A[tempchild], A[i])) // condition differs for MaxHeap and MinHeap
 	{
 		swap(A[i], A[tempchild]);
 		siftDown(tempchild);

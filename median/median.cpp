@@ -21,6 +21,7 @@ int main()
 
 	int greaterF, smallerF;
 
+	//place first two elements into heaps
 	if (size > 1)
 	{
 	greaterF = A[0] >= A[1] ? A[0] : A[1];
@@ -34,7 +35,7 @@ int main()
 	if(size > 1)
 	std::cout << average(A[0],A[1]) << std::endl;
 
-	// from 3rd element to size
+	// from 3rd element running stream
 	for (int i = 2; i < size; i++)
 	{
 		if (i < MAX_HEAP_SIZE)
@@ -64,9 +65,9 @@ double average(int a, int b)
 }
 
 // compheapsize function
-// = 0 if - heaps size difference is less than 1
-// = -1 if a < b - left contains less than one elements than right
-// = 1 if a > b - left contains more than one elements than right
+// = 0 if - heap size difference is less than or equal 1
+// = -1 if a + 1 < b - left heap contains less than one elements than right heap
+// = 1 if a > b + 1 - left heap contains more than one elements than right heap
 int compheapsize(int a, int b)
 {
 	if (a > b + 1)
@@ -92,7 +93,7 @@ double getMedian(int e, double &m, Heap &l, Heap &r)
 	{
 	case 1: // There are more than one elements in left (max) heap
 		r.Insert(l.extractTop());
-		m = average(l.gettop(), r.gettop()); 		// Both heaps are equal size
+		m = average(l.gettop(), r.gettop()); 		// both heaps are equal in size
 		break;
 	case 0: // The left and right differs no more than 1
 		if (l.getcount() > r.getcount())
@@ -104,7 +105,7 @@ double getMedian(int e, double &m, Heap &l, Heap &r)
 		break;
 	case -1: // There are more than one elements in right (min) heap
 		l.Insert(r.extractTop());
-		m = average(l.gettop(), r.gettop());		// Both heaps are equal size
+		m = average(l.gettop(), r.gettop());		// both heaps are equal in size
 		break;
 	}
 
